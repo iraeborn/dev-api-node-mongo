@@ -3,25 +3,22 @@ module.exports = app => {
 
   var router = require("express").Router();
 
-  // Create a new dev
+  // Cria um novo registro dev
   router.post("/", devs.create);
 
-  // Retrieve all devs
+  // Retorna todos registros devs
   router.get("/", devs.findAll);
 
-  // Retrieve all published devs
-  router.get("/published", devs.findAllPublished);
-
-  // Retrieve a single dev with id
+  // Retorna um registro Retrieve dev por id
   router.get("/:id", devs.findOne);
 
-  // Update a dev with id
+  // Atualiza um registro dev por id
   router.put("/:id", devs.update);
 
-  // Delete a dev with id
+  // Deleta um registro dev por id
   router.delete("/:id", devs.delete);
 
-  // Create a new dev
+  // Deleta todos registros dev
   router.delete("/", devs.deleteAll);
 
   app.use("/developers", router);

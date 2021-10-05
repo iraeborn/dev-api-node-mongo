@@ -6,17 +6,18 @@ module.exports = mongoose => {
       idade: Number,
       hobby: String,
       datanascimento: Date
-    },
+    }
+    ,
     { timestamps: true }
   );
 
-  /*
+  /* exemplo de data
   {
     "nome": "Iraê Bornholdt",
     "sexo": "Masculino",
     "idade": 37,
     "hobby": "Developer",
-    "datanascimento": 05/12/1983
+    "datanascimento": "05/12/1983"
   }
   */
 

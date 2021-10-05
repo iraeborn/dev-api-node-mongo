@@ -35,9 +35,10 @@ exports.create = (req, res) => {
 
 // Retrieve all Devs from the database.
 exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
-
+  const nome = req.query.nome;
+  
+  var condition = nome ? { nome: { $regex: new RegExp(nome), $options: "i" } } : {};
+  
   Dev.find(condition)
     .then(data => {
       res.send(data);
@@ -65,6 +66,7 @@ exports.findOne = (req, res) => {
         .status(500)
         .send({ message: "Error retrieving Dev with id=" + id });
     });
+    
 };
 
 // Update a Dev by the id in the request
