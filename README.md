@@ -58,6 +58,12 @@ Codes 204 / 400
 ```
 Apaga o registro de um desenvolvedor
 
+# Referências
+Swagger: https://github.com/brian-childress/node-autogenerate-swagger-documentation
+
+## Project Dependencias
+npm install swagger-jsdoc swagger-ui-express
+
 ## Project setup
 ```
 npm install
