@@ -74,7 +74,6 @@ Codes 204 / 400
 
 ## Project Dependencias
 npm install swagger-jsdoc swagger-ui-express
-
 npm install -g nodemon ###### [Nodemon](https://www.npmjs.com/package/nodemon)
 
 ## Project setup
@@ -83,6 +82,9 @@ npm install
 ```
 
 ### Run
+```
+npm start
+```
 ```
 node server.js
 ```
