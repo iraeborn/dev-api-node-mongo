@@ -59,7 +59,9 @@ Codes 204 / 400
 Apaga o registro de um desenvolvedor
 
 # Referências
-Swagger: https://github.com/brian-childress/node-autogenerate-swagger-documentation
+###### Swagger:
+https://github.com/brian-childress/node-autogenerate-swagger-documentation
+https://dev.to/kabartolo/how-to-document-an-express-api-with-swagger-ui-and-jsdoc-50do
 
 ## Project Dependencias
 npm install swagger-jsdoc swagger-ui-express
