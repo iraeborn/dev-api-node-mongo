@@ -1,6 +1,29 @@
 const express = require("express");
 const cors = require("cors");
+const swaggerUI =  require("swagger-ui-express");
+const swaggerJsDoc = require("swagger-jsdoc");
 const app = express();
+
+var swaggerDefinition = {
+  openapi: '3.0.0',
+  info:{
+    title: "Api Dev com swagger",
+    version: "1.0.00",
+    descriptiom: "Documentação API Desenvolvedores"
+  },
+  components:{
+    schemas: require("./schemas.json")
+  }
+}
+
+var options = {
+  swaggerDefinition: swaggerDefinition,
+  apis: ['./routes/*.js']
+}
+
+var swaggerSpec = swaggerJsDoc(options);
+app.use("/doc", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
 
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -28,7 +51,7 @@ db.mongoose
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Olá Dev!" });
+  res.json({ message: "Olá Developers!" });
 });
 
 require("./app/routes/dev.routes")(app);

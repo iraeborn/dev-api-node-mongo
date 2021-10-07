@@ -63,6 +63,7 @@ Swagger: https://github.com/brian-childress/node-autogenerate-swagger-documentat
 
 ## Project Dependencias
 npm install swagger-jsdoc swagger-ui-express
+npm install -g nodemon ###### [Nodemon](https://www.npmjs.com/package/nodemon)
 
 ## Project setup
 ```

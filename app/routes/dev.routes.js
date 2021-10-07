@@ -1,11 +1,28 @@
+
 module.exports = app => {
   const devs = require("../controllers/dev.controller.js");
-
+  
   var router = require("express").Router();
 
   // Cria um novo registro dev
   router.post("/", devs.create);
-
+  
+  /**
+   * @swagger
+   * /developers:
+   *  get:
+   *    summary: Retorna todos registros devs
+   *    tags:
+   *      - desenvolvedores
+   *    description: Retorna todos registros devs
+   *    produces:
+   *      - application/json
+   *    responses:
+   *      200:
+   *        description: Retorna todos registros devs
+   *        schema:
+   *          $ref: '#/components/schemas/Desenvolvedores'
+   */
   // Retorna todos registros devs
   router.get("/", devs.findAll);
 
@@ -22,4 +39,4 @@ module.exports = app => {
   router.delete("/", devs.deleteAll);
 
   app.use("/developers", router);
-};
+}

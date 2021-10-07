@@ -1,0 +1,22 @@
+{
+    "Desenvolvedores": {
+        "type": "object",
+        "properties":{
+            "nome": {
+                "type": "String"
+            },
+            "sexo": {
+                "type": "String"
+            },
+            "idade": {
+                "type": "Number"
+            },
+            "hobby": {
+                "type": "String"
+            },
+            "datanascimento": {
+                "type": "Date"
+            }
+        }
+    }
+}
