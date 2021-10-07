@@ -1,55 +1,53 @@
 const db = require("../models");
 const Dev = db.devs;
 
-// Create and Save a new Dev
-exports.create = (req, res) => {
-  // Validate request
-  if (!req.body.nome) {
-    res.status(400).send({ message: "Content can not be empty!" });
-    return;
-  }
+///////// Create and Save a new Dev
+// exports.create = (req, res) => {
+//   // Validate request
+//   if (!req.body.nome) {
+//     res.status(400).send({ message: "Content can not be empty!" });
+//     return;
+//   }
 
-  // Create a Dev
-  const dev = new Dev({
-    nome: req.body.nome,
-    sexo: req.body.sexo,
-    idade: req.body.idade,
-    hobby: req.body.hobby,
-    datanascimento: req.body.datanascimento
-    //published: req.body.published ? req.body.published : false
-  });
+//   // Create a Dev
+//   const dev = new Dev({
+//     nome: req.body.nome,
+//     sexo: req.body.sexo,
+//     idade: req.body.idade,
+//     hobby: req.body.hobby,
+//     datanascimento: req.body.datanascimento
+//     //published: req.body.published ? req.body.published : false
+//   });
 
-  // Save Dev in the database
-  dev
-    .save(dev)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Dev."
-      });
-    });
-};
+//   // Save Dev in the database
+//   dev
+//     .save(dev)
+//     .then(data => {
+//       res.send(data);
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message:
+//           err.message || "Some error occurred while creating the Dev."
+//       });
+//     });
+// };
 
-// Retrieve all Devs from the database.
-exports.findAll = (req, res) => {
-  const nome = req.query.nome;
-  
-  var condition = nome ? { nome: { $regex: new RegExp(nome), $options: "i" } } : {};
-  
-  Dev.find(condition)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving devs."
-      });
-    });
-};
+/////// Retrieve all Devs from the database.
+// exports.findAll = (req, res) => {
+//   const nome = req.query.nome;
+//   var condition = nome ? { nome: { $regex: new RegExp(nome), $options: "i" } } : {};
+//   Dev.find(condition)
+//     .then(data => {
+//       res.send(data);
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message:
+//           err.message || "Some error occurred while retrieving devs."
+//       });
+//     });
+// };
 
 // Find a single Dev with an id
 exports.findOne = (req, res) => {

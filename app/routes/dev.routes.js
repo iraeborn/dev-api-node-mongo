@@ -5,26 +5,10 @@ module.exports = app => {
   var router = require("express").Router();
 
   // Cria um novo registro dev
-  router.post("/", devs.create);
-  
-  /**
-   * @swagger
-   * /developers:
-   *  get:
-   *    summary: Retorna todos registros devs
-   *    tags:
-   *      - desenvolvedores
-   *    description: Retorna todos registros devs
-   *    produces:
-   *      - application/json
-   *    responses:
-   *      200:
-   *        description: Retorna todos registros devs
-   *        schema:
-   *          $ref: '#/components/schemas/Desenvolvedores'
-   */
+  // router.post("/", devs.create);
+
   // Retorna todos registros devs
-  router.get("/", devs.findAll);
+  // router.get("/", devs.findAll);
 
   // Retorna um registro Retrieve dev por id
   router.get("/:id", devs.findOne);
@@ -38,5 +22,5 @@ module.exports = app => {
   // Deleta todos registros dev
   router.delete("/", devs.deleteAll);
 
-  app.use("/developers", router);
+  //app.use("/developers", router);
 }

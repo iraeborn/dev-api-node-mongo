@@ -59,12 +59,23 @@ Codes 204 / 400
 Apaga o registro de um desenvolvedor
 
 # Referências
+
+###### Node-Express Rest API:
+1. https://www.bezkoder.com/node-express-mongodb-crud-rest-api/
+
 ###### Swagger:
-https://github.com/brian-childress/node-autogenerate-swagger-documentation
-https://dev.to/kabartolo/how-to-document-an-express-api-with-swagger-ui-and-jsdoc-50do
+1. https://github.com/brian-childress/node-autogenerate-swagger-documentation
+
+2. https://dev.to/kabartolo/how-to-document-an-express-api-with-swagger-ui-and-jsdoc-50do
+
+###### Docker:
+1. https://www.youtube.com/watch?v=BeFT1hcpUPo
+
+
 
 ## Project Dependencias
 npm install swagger-jsdoc swagger-ui-express
+
 npm install -g nodemon ###### [Nodemon](https://www.npmjs.com/package/nodemon)
 
 ## Project setup
