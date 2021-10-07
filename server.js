@@ -7,12 +7,15 @@ const app = express();
 var swaggerDefinition = {
   openapi: '3.0.0',
   info:{
-    title: "Api Dev com swagger",
+    title: "Api Desenvolvedores",
     version: "1.0.00",
-    description: "Documentação API Desenvolvedores",
+    description: "API `Desenvolvedores` criada com Swagger baseada em NodeJS and MongoDb",
     contact:{
       name: "Iraê Bornholdt"
-    }
+    },
+    schemes:
+    - "https"
+    - "http"
   },
   components:{
     schemas: require("./schemas.json")
@@ -52,25 +55,27 @@ db.mongoose
 
 const Dev = db.devs;
 
-// simple route
+// entry route
 app.get("/", (req, res) => {
-  res.json({ message: "Olá Developers!" });
+  res.send(
+    "Olá Developers!<br><a href='/doc'>Clique para acessar a documentação da API</a>"
+   );
 });
 
 // Retorna todos registros devs
 /**
   * @swagger
-  * /api:
+  * /developers:
   *  get:
   *    summary: Retorna todos registros devs
   *    tags:
-  *      - desenvolvedores
+  *      - Desenvolvedores
   *    description: Retorna todos registros devs
   *    responses:
   *      '200':
   *        description: OK
  */
- app.get("/api", (req, res) => {
+ app.get("/developers", (req, res) => {
   const nome = req.query.nome;
   var condition = nome ? { nome: { $regex: new RegExp(nome), $options: "i" } } : {};
   
@@ -87,7 +92,7 @@ app.get("/", (req, res) => {
   });
 
 // Cria um novo registro dev
-app.put("/api", (req, res) => {
+app.put("/developers", (req, res) => {
   // Validate request
   if (!req.body.nome) {
     res.status(400).send({ message: "Content can not be empty!" });
@@ -97,29 +102,23 @@ app.put("/api", (req, res) => {
   // Create a Dev
 /**
 *  @swagger
-*  /api:
+*  /developers:
 *    put:
 *      summary: Cria um novo registro dev
-*      description: Cria um novo registro dev
+*      description: 
 *      tags:
-*        - desenvolvedores
+*        - Desenvolvedores
+*      consumes:
+*        - application/json
 *      produces:
 *        - application/json
 *      parameters:
-*        - name: nome
-*          in: body
-*          description: Nome do Dev
-*          required: true
-*          schema:
-*            type: string
-*            format: string
-*        - name: sexo
-*          in: body
-*          description: Sexo do Dev
-*          required: false
-*          schema:
-*            type: string
-*            format: string
+*      - in: "body"
+*        name: "body"
+*        description: "Dev object"
+*        required: true
+*        schema:
+*          $ref: "#/components/schemas/Desenvolvedores"
 *      responses:
 *        '200':
 *          description: OK
@@ -140,7 +139,7 @@ app.put("/api", (req, res) => {
       res.send(data);
     })
     .catch(err => {
-      res.status(500).send({
+      res.send({
         message:
           err.message || "Some error occurred while creating the Dev."
       });

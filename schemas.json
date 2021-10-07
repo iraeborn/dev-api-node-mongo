@@ -1,21 +1,31 @@
 {
     "Desenvolvedores": {
         "type": "object",
-        "properties":{
+        "properties": {
             "nome": {
-                "type": "String"
+                "type": "String",
+                "description": "Nome",
+                "example": "Irae Bornholdt"
             },
             "sexo": {
-                "type": "String"
+                "type": "String",
+                "description": "Sexo",
+                "example": "Masculino"
             },
             "idade": {
-                "type": "Number"
+                "type": "Number",
+                "description": "Sexo",
+                "example": 37
             },
             "hobby": {
-                "type": "String"
+                "type": "String",
+                "description": "Atividade preferida nas horas vagas",
+                "example": "Fotografia"
             },
             "datanascimento": {
-                "type": "Date"
+                "type": "Date",
+                "description": "Data de nascimento",
+                "example": "05/12/1983"
             }
         }
     }
