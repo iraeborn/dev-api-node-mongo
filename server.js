@@ -103,7 +103,7 @@ app.get("/", (req, res) => {
 /**
 *  @swagger
 *  /developers:
-*    put:
+*    post:
 *      summary: Cria um novo registro dev
 *      description: 
 *      tags:
@@ -113,8 +113,8 @@ app.get("/", (req, res) => {
 *      produces:
 *        - application/json
 *      parameters:
-*      - in: "body"
-*        name: "body"
+*      - in: body
+*        name: body
 *        description: "Dev object"
 *        required: true
 *        schema:
@@ -123,12 +123,12 @@ app.get("/", (req, res) => {
 *        '200':
 *          description: OK
 */
-app.put("/developers", (req, res) => {
+app.post("/developers", (req, res) => {
   // Validate request
-  if (!req.body.nome) {
-    res.status(400).send({ message: "Content can not be empty!" });
-    return;
-  }
+  // if (!req.body.nome) {
+  //   res.status(400).send({ message: "Content can not be empty!" });
+  //   return;
+  // }
 
   const dev = new Dev({
     nome: req.body.nome,
@@ -138,6 +138,8 @@ app.put("/developers", (req, res) => {
     datanascimento: req.body.datanascimento
     //published: req.body.published ? req.body.published : false
   });
+
+  res.send(dev);
 
   // Save Dev in the database
   dev
