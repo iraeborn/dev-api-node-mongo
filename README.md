@@ -56,19 +56,33 @@ Codes 204 / 400
 ```
 
 ## Docker setup project
+
+### app/config/db.config.js
+//use 'mongodb' on Docker
+url: "mongodb://mongodb:27017/"
+```
+mongodb
+```
 ```
 docker-compose up
 ```
 
-## Project setup sem Docker
+## Project setup localhost
+
+### app/config/db.config.js
+//use 'localhost' on localhost
+url: "mongodb://localhost:27017/"
+```
+localhost
+```
 ```
 npm install
 ```
 
-### Run
 ```
 npm start
 ```
+ou
 ```
 node server.js
 ```
