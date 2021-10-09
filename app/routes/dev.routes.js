@@ -11,16 +11,16 @@ module.exports = app => {
   // router.get("/", devs.findAll);
 
   // Retorna um registro Retrieve dev por id
-  router.get("/:id", devs.findOne);
+  // router.get("/:id", devs.findOne);
 
   // Atualiza um registro dev por id
-  router.put("/:id", devs.update);
+  // router.put("/:id", devs.update);
 
   // Deleta um registro dev por id
-  router.delete("/:id", devs.delete);
+  // router.delete("/:id", devs.delete);
 
   // Deleta todos registros dev
-  router.delete("/", devs.deleteAll);
+  // router.delete("/", devs.deleteAll);
 
   //app.use("/developers", router);
 }

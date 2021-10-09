@@ -39,7 +39,7 @@ app.use("/doc", swaggerUI.serve, swaggerUI.setup(swaggerSpec, cssOptions));
 
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:3000"
 };
 
 app.use(cors(corsOptions));
@@ -53,16 +53,16 @@ db.mongoose
     useUnifiedTopology: true
   })
   .then(() => {
-    console.log("Connected to the database!");
+    console.log("Conectado ao banco de dados!");
   })
   .catch(err => {
-    console.log("Cannot connect to the database!", err);
+    console.log("Não é possível conectar ao banco de dados!", err);
     process.exit();
   });
 
 const Dev = db.devs;
 
-// entry route
+// rota de entrada
 app.get("/", (req, res) => {
   res.send(
     "Olá Developers!<br><a href='/doc'>Clique para acessar a documentação da API</a>"
@@ -93,42 +93,39 @@ app.get("/", (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving devs."
+          err.message || "Ocorreu algum erro ao recuperar devs."
       });
     });
   });
 
 // Cria um novo registro dev
-// Create a Dev
 /**
 *  @swagger
 *  /developers:
 *    post:
 *      summary: Cria um novo registro dev
-*      description: 
 *      tags:
 *        - Desenvolvedores
-*      consumes:
-*        - application/json
-*      produces:
-*        - application/json
-*      parameters:
-*      - in: body
-*        name: body
-*        description: "Dev object"
+*      requestBody:
 *        required: true
-*        schema:
-*          $ref: "#/components/schemas/Desenvolvedores"
+*        content:
+*          application/json:
+*            schema:
+*              $ref: "#/components/schemas/Desenvolvedores"
 *      responses:
-*        '200':
-*          description: OK
+*       200:
+*         description: OK
+*         content:
+*               application/json:
+*                 schema:
+*                   $ref: "#/components/schemas/Desenvolvedores"
 */
 app.post("/developers", (req, res) => {
   // Validate request
-  // if (!req.body.nome) {
-  //   res.status(400).send({ message: "Content can not be empty!" });
-  //   return;
-  // }
+  if (!req.body.nome) {
+    res.status(400).send({ message: "O conteúdo não pode estar vazio!" });
+    return;
+  }
 
   const dev = new Dev({
     nome: req.body.nome,
@@ -141,7 +138,7 @@ app.post("/developers", (req, res) => {
 
   res.send(dev);
 
-  // Save Dev in the database
+  // Salvar Dev no banco de dados
   dev
     .save(dev)
     .then(data => {
@@ -150,16 +147,144 @@ app.post("/developers", (req, res) => {
     .catch(err => {
       res.send({
         message:
-          err.message || "Some error occurred while creating the Dev."
+          err.message || "Ocorreu algum erro ao criar o Dev."
       });
     });
 });
 
-// Routes
-//require("./app/routes/dev.routes")(app);
+// Retorna um único Dev com um id
+/**
+  * @swagger
+  * /developers/{id}:
+  *  get:
+  *    summary: Retorna um único Dev com um id
+  *    tags:
+  *      - Desenvolvedores
+  *    description: Retorna um único Dev com um id
+  *    parameters:
+  *      - in: path
+  *        name: id
+  *        required: true
+  *    responses:
+  *      '200':
+  *        description: OK
+  *        schema:
+  *           $ref: "#/components/schemas/Desenvolvedores"
+  *      '404':
+  *        description: Dev não encontrado com id
+  */
+ app.get("/developers/:id", (req, res) => {
+  const id = req.params.id;
 
-//
-//app.use("/developers", app);
+Dev.findById(id).then(data => {
+      if (!data)
+        res.status(404).send({ message: "Dev não encontrado com id " + id });
+      else
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(404).send({ message: "404" });
+    });
+    
+});
+
+// Deleta um registro dev por id
+/**
+ * @swagger
+ * /developers/{id}:
+ *  delete:
+ *    summary: Deleta um registro dev por id
+ *    tags:
+ *      - Desenvolvedores
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *    responses:
+ *      200:
+ *        description: Dev foi deletado
+ *      404:
+ *        description: O Dev não foi encontrado
+ */
+
+ app.delete("/developers/:id", (req, res) => {
+  const id = req.params.id;
+
+  Dev.findByIdAndRemove(id, { useFindAndModify: false }).then(data => {
+      if (!data) {
+        res.status(404).send({
+          message: `Não é possível deletar Dev com id=${id}. Talvez Dev não tenha sido encontrado!`
+        });
+      } else {
+        res.send({
+          message: "Dev foi excluído com sucesso!"
+        });
+      }
+    }).catch(err => {
+      res.status(500).send({
+        message: "Não foi possível excluir Dev com id=" + id
+      });
+    });
+
+});
+
+// Atualiza um registro dev por id
+/**
+ * @swagger
+ * /developers/{id}:
+ *  put:
+ *    summary: Atualiza dev por id
+ *    tags:
+ *      - Desenvolvedores
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: Dev id
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: "#/components/schemas/Desenvolvedores"
+ *    responses:
+ *      200:
+ *        description: Dev foi atualizado
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: "#/components/schemas/Desenvolvedores"
+ *      404:
+ *        description: Dev não encontrado
+ *      500:
+ *        description: Algum erro aconteceu
+ */
+
+app.put("/developers/:id", (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Os dados a serem atualizados não podem estar vazios!"
+    });
+  }
+
+  const id = req.params.id;
+
+  Dev.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    .then(data => {
+      if (!data) {
+        res.status(404).send({
+          message: `Não é possível atualizar Dev com id=${id}. Talvez Dev não tenha sido encontrado!`
+        });
+      } else res.send({ message: "Dev foi atualizado com sucesso." });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Erro ao atualizar Dev com id=" + id
+      });
+    });
+});
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000; //8080

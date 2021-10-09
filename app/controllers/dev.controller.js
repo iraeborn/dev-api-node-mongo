@@ -50,70 +50,70 @@ const Dev = db.devs;
 // };
 
 // Find a single Dev with an id
-exports.findOne = (req, res) => {
-  const id = req.params.id;
+// exports.findOne = (req, res) => {
+//   const id = req.params.id;
 
-  Dev.findById(id)
-    .then(data => {
-      if (!data)
-        res.status(404).send({ message: "Not found Dev with id " + id });
-      else res.send(data);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .send({ message: "Error retrieving Dev with id=" + id });
-    });
+//   Dev.findById(id)
+//     .then(data => {
+//       if (!data)
+//         res.status(404).send({ message: "Not found Dev with id " + id });
+//       else res.send(data);
+//     })
+//     .catch(err => {
+//       res
+//         .status(500)
+//         .send({ message: "Error retrieving Dev with id=" + id });
+//     });
     
-};
+// };
 
 // Update a Dev by the id in the request
-exports.update = (req, res) => {
-  if (!req.body) {
-    return res.status(400).send({
-      message: "Data to update can not be empty!"
-    });
-  }
+// exports.update = (req, res) => {
+//   if (!req.body) {
+//     return res.status(400).send({
+//       message: "Data to update can not be empty!"
+//     });
+//   }
 
-  const id = req.params.id;
+//   const id = req.params.id;
 
-  Dev.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-    .then(data => {
-      if (!data) {
-        res.status(404).send({
-          message: `Cannot update Dev with id=${id}. Maybe Dev was not found!`
-        });
-      } else res.send({ message: "Dev was updated successfully." });
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error updating Dev with id=" + id
-      });
-    });
-};
+//   Dev.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+//     .then(data => {
+//       if (!data) {
+//         res.status(404).send({
+//           message: `Cannot update Dev with id=${id}. Maybe Dev was not found!`
+//         });
+//       } else res.send({ message: "Dev was updated successfully." });
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message: "Error updating Dev with id=" + id
+//       });
+//     });
+// };
 
 // Delete a Dev with the specified id in the request
-exports.delete = (req, res) => {
-  const id = req.params.id;
+// exports.delete = (req, res) => {
+//   const id = req.params.id;
 
-  Dev.findByIdAndRemove(id, { useFindAndModify: false })
-    .then(data => {
-      if (!data) {
-        res.status(404).send({
-          message: `Cannot delete Dev with id=${id}. Maybe Dev was not found!`
-        });
-      } else {
-        res.send({
-          message: "Dev was deleted successfully!"
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Could not delete Dev with id=" + id
-      });
-    });
-};
+//   Dev.findByIdAndRemove(id, { useFindAndModify: false })
+//     .then(data => {
+//       if (!data) {
+//         res.status(404).send({
+//           message: `Cannot delete Dev with id=${id}. Maybe Dev was not found!`
+//         });
+//       } else {
+//         res.send({
+//           message: "Dev was deleted successfully!"
+//         });
+//       }
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message: "Could not delete Dev with id=" + id
+//       });
+//     });
+// };
 
 // Delete all devs from the database.
 exports.deleteAll = (req, res) => {

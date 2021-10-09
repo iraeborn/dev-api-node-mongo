@@ -76,6 +76,11 @@ Codes 204 / 400
 npm install swagger-jsdoc swagger-ui-express
 npm install -g nodemon ###### [Nodemon](https://www.npmjs.com/package/nodemon)
 
+## Docker setup project
+```
+docker-compose up
+```
+
 ## Project setup
 ```
 npm install
