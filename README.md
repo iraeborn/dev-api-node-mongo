@@ -1,13 +1,13 @@
-# dev-api-node-mongo
-
-# Backend
-API JSON REST em *Node.js*, utilizando os métodos (​GET​, ​POST​, ​PUT​, ​DELETE​).
+# RESTAPI:Developers NodeJs, MongoDb e Docker
 
 # Frontend
 UI/UX SPA (single-page application), atendendo o consumo de todos endpoints da API
 
-# Especificação
-Base de desenvolvedores com a seguinte estrutura:
+# Backend
+API JSON REST em *Node.js*, utilizando os métodos (​GET​, ​POST​, ​PUT​, ​DELETE​).
+
+# Banco de dados
+Base de desenvolvedores em MongoDb com a seguinte estrutura:
 
 ```
 nome: varchar
@@ -17,53 +17,58 @@ hobby: varchar
 datanascimento: date
 ```
 
-MongoDb como ​banco de dados​
+# END-POINTS
 
-# API endpoints
-
+###### Retorna todos os desenvolvedores
 ```
 GET /developers
 Codes 200
 ```
-Retorna todos os desenvolvedores
 
+###### Retorna os desenvolvedores de acordo com o termo passado via querystring e paginação
 ```
 GET /developers?
 Codes 200 / 404
 ```
-Retorna os desenvolvedores de acordo com o termo passado via querystring e
-paginação
 
+###### Retorna os dados de um desenvolvedor
 ```
 GET /developers/{id}
 Codes 200 / 404
 ```
-Retorna os dados de um desenvolvedor
 
+###### Adiciona um novo desenvolvedor
 ```
 POST /developers
 Codes 201 / 400
 ```
-Adiciona um novo desenvolvedor
 
+###### Atualiza os dados de um desenvolvedor
 ```
 PUT /developers/{id}
 Codes 200 / 400
 ```
-Atualiza os dados de um desenvolvedor
 
+###### Apaga o registro de um desenvolvedor
 ```
 DELETE /developers/{id}
 Codes 204 / 400
 ```
-Apaga o registro de um desenvolvedor
 
-## Project setup
+## Docker setup project
+```
+docker-compose up
+```
+
+## Project setup sem Docker
 ```
 npm install
 ```
 
 ### Run
+```
+npm start
+```
 ```
 node server.js
 ```

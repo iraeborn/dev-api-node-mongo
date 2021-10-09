@@ -1,10 +1,10 @@
 {
   "name": "node-express-mongodb",
   "version": "1.0.0",
-  "description": "Node.js Restful CRUD API with Node.js, Express and MongoDB",
+  "description": "Restful:API DEV com Node.js, Express e MongoDB",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "keywords": [
     "nodejs",
@@ -19,6 +19,8 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.8.10"
+    "mongoose": "^5.8.10",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6"
   }
 }

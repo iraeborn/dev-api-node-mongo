@@ -1,0 +1,3 @@
+###
+
+GET https://localhost:3100/developers?page=1&limit=2
