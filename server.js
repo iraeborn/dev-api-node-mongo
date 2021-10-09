@@ -39,7 +39,7 @@ app.use("/doc", swaggerUI.serve, swaggerUI.setup(swaggerSpec, cssOptions));
 
 
 var corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "http://localhost:3100"
 };
 
 app.use(cors(corsOptions));
@@ -69,41 +69,12 @@ app.get("/", (req, res) => {
    );
 });
 
-// Retorna todos registros devs
-/**
-  * @swagger
-  * /developers:
-  *  get:
-  *    summary: Retorna todos registros devs
-  *    tags:
-  *      - Desenvolvedores
-  *    description: Retorna todos registros devs
-  *    responses:
-  *      '200':
-  *        description: OK
- */
- app.get("/developers", (req, res) => {
-  const nome = req.query.nome;
-  var condition = nome ? { nome: { $regex: new RegExp(nome), $options: "i" } } : {};
-  
-  Dev.find(condition)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Ocorreu algum erro ao recuperar devs."
-      });
-    });
-  });
-
 // Cria um novo registro dev
 /**
 *  @swagger
 *  /developers:
 *    post:
-*      summary: Cria um novo registro dev
+*      summary: Adiciona um novo registro dev
 *      tags:
 *        - Desenvolvedores
 *      requestBody:
@@ -113,12 +84,10 @@ app.get("/", (req, res) => {
 *            schema:
 *              $ref: "#/components/schemas/Desenvolvedores"
 *      responses:
-*       200:
-*         description: OK
-*         content:
-*               application/json:
-*                 schema:
-*                   $ref: "#/components/schemas/Desenvolvedores"
+*       201:
+*         description: Novo dev adicionado com sucesso
+*       400:
+*         description: Não foi possível adicionar um novo dev
 */
 app.post("/developers", (req, res) => {
   // Validate request
@@ -133,7 +102,6 @@ app.post("/developers", (req, res) => {
     idade: req.body.idade,
     hobby: req.body.hobby,
     datanascimento: req.body.datanascimento
-    //published: req.body.published ? req.body.published : false
   });
 
   res.send(dev);
@@ -168,8 +136,6 @@ app.post("/developers", (req, res) => {
   *    responses:
   *      '200':
   *        description: OK
-  *        schema:
-  *           $ref: "#/components/schemas/Desenvolvedores"
   *      '404':
   *        description: Dev não encontrado com id
   */
@@ -191,22 +157,39 @@ Dev.findById(id).then(data => {
 // Retorna os desenvolvedores de acordo com o termo passado via querystring e paginação
 /**
   * @swagger
-  * /developers?:
+  * /developers:
   *  get:
   *    summary: Retorna dev por Querystring e paginação
   *    tags:
   *      - Desenvolvedores
   *    description: Retorna os desenvolvedores de acordo com o termo passado via querystring e paginação
   *    parameters:
-  *      - in: path
+  *      - in: query
+  *        name: page
+  *        required: false
+  *        default: 1
+  *      - in: query
+  *        name: limit
+  *        required: false
+  *        default: 2
+  *      - in: query
   *        name: id
   *        required: false
-  *      - in: path
-  *        name: page
-  *        required: true
-  *      - in: path
-  *        name: limit
-  *        required: true
+  *      - in: query
+  *        name: nome
+  *        required: false
+  *      - in: query
+  *        name: sexo
+  *        required: false
+  *      - in: query
+  *        name: idade
+  *        required: false
+  *      - in: query
+  *        name: hobby
+  *        required: false
+  *      - in: query
+  *        name: datanascimento
+  *        required: false
   *    responses:
   *      '200':
   *        description: OK
@@ -216,7 +199,7 @@ Dev.findById(id).then(data => {
   *        description: Dev não encontrado com id
   */
  const url = require('url');
- app.get("/dev", (req, res) => {
+ app.get("/developers", (req, res) => {
 
 const page = req.query.page ? parseInt(req.query.page, 10) : 1;
 const limit = req.query.limit ? parseInt(req.query.limit, 10) : -1;
@@ -261,9 +244,9 @@ Dev.find(query).then(data => {
  *        name: id
  *        required: true
  *    responses:
- *      200:
+ *      204:
  *        description: Dev foi deletado
- *      404:
+ *      400:
  *        description: O Dev não foi encontrado
  */
 
@@ -312,14 +295,8 @@ Dev.find(query).then(data => {
  *    responses:
  *      200:
  *        description: Dev foi atualizado
- *        content:
- *          application/json:
- *            schema:
- *              $ref: "#/components/schemas/Desenvolvedores"
- *      404:
+ *      400:
  *        description: Dev não encontrado
- *      500:
- *        description: Algum erro aconteceu
  */
 
 app.put("/developers/:id", (req, res) => {
