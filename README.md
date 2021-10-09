@@ -63,6 +63,7 @@ url: "mongodb://mongodb:27017/"
 ```
 mongodb
 ```
+### Executar comando terminal
 ```
 docker-compose up
 ```
@@ -75,6 +76,7 @@ url: "mongodb://localhost:27017/"
 ```
 localhost
 ```
+### Executar comando terminal
 ```
 npm install
 ```
