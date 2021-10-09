@@ -1,13 +1,13 @@
-# dev-api-node-mongo
-
-# Backend
-API JSON REST em *Node.js*, utilizando os métodos (​GET​, ​POST​, ​PUT​, ​DELETE​).
+# RESTAPI:Developers NodeJs, MongoDb e Docker
 
 # Frontend
 UI/UX SPA (single-page application), atendendo o consumo de todos endpoints da API
 
-# Especificação
-Base de desenvolvedores com a seguinte estrutura:
+# Backend
+API JSON REST em *Node.js*, utilizando os métodos (​GET​, ​POST​, ​PUT​, ​DELETE​).
+
+# Banco de dados
+Base de desenvolvedores em MongoDb com a seguinte estrutura:
 
 ```
 nome: varchar
@@ -17,9 +17,7 @@ hobby: varchar
 datanascimento: date
 ```
 
-MongoDb como ​banco de dados​
-
-# API endpoints
+# END-POINTS
 
 ###### Retorna todos os desenvolvedores
 ```
@@ -57,31 +55,12 @@ DELETE /developers/{id}
 Codes 204 / 400
 ```
 
-# Referências
-
-###### Node-Express Rest API:
-1. https://www.bezkoder.com/node-express-mongodb-crud-rest-api/
-
-###### Swagger:
-1. https://github.com/brian-childress/node-autogenerate-swagger-documentation
-
-2. https://dev.to/kabartolo/how-to-document-an-express-api-with-swagger-ui-and-jsdoc-50do
-
-###### Docker:
-1. https://www.youtube.com/watch?v=BeFT1hcpUPo
-
-
-
-## Project Dependencias
-npm install swagger-jsdoc swagger-ui-express
-npm install -g nodemon ###### [Nodemon](https://www.npmjs.com/package/nodemon)
-
 ## Docker setup project
 ```
 docker-compose up
 ```
 
-## Project setup
+## Project setup sem Docker
 ```
 npm install
 ```

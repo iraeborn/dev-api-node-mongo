@@ -24,7 +24,7 @@ var swaggerDefinition = {
 
 var options = {
   swaggerDefinition: swaggerDefinition,
-  apis: ['server.js','./routes/*.js']
+  apis: ['server.js']
 }
 var cssOptions = {
   customCss: `
@@ -188,6 +188,66 @@ Dev.findById(id).then(data => {
     
 });
 
+// Retorna os desenvolvedores de acordo com o termo passado via querystring e paginação
+/**
+  * @swagger
+  * /developers?:
+  *  get:
+  *    summary: Retorna dev por Querystring e paginação
+  *    tags:
+  *      - Desenvolvedores
+  *    description: Retorna os desenvolvedores de acordo com o termo passado via querystring e paginação
+  *    parameters:
+  *      - in: path
+  *        name: id
+  *        required: false
+  *      - in: path
+  *        name: page
+  *        required: true
+  *      - in: path
+  *        name: limit
+  *        required: true
+  *    responses:
+  *      '200':
+  *        description: OK
+  *        schema:
+  *           $ref: "#/components/schemas/Desenvolvedores"
+  *      '404':
+  *        description: Dev não encontrado com id
+  */
+ const url = require('url');
+ app.get("/dev", (req, res) => {
+
+const page = req.query.page ? parseInt(req.query.page, 10) : 1;
+const limit = req.query.limit ? parseInt(req.query.limit, 10) : -1;
+
+const nome = req.query.nome;
+const id = req.query.id;
+var query = {};
+const queryObject = url.parse(req.url, true).query;
+
+for (let [key, value] of Object.entries(queryObject)) {
+  if(key == "page" || key == "limit")
+  continue
+  Object.assign(query, {[key]:value});
+}
+
+const startIndex = (page - 1) * limit;
+const endIndex = page * limit;
+
+Dev.find(query).then(data => {
+      if (!data)
+        res.status(404).send({ message: "Dev não encontrado com id " + id });
+      else
+        datadev = data.slice(startIndex, endIndex);
+        res.send(datadev);
+    })
+    .catch(err => {
+      res.status(404).send({ message: "404" });
+    });
+    
+});
+
 // Deleta um registro dev por id
 /**
  * @swagger
@@ -287,7 +347,7 @@ app.put("/developers/:id", (req, res) => {
 });
 
 // set port, listen for requests
-const PORT = process.env.PORT || 3000; //8080
+const PORT = process.env.PORT || 3100; //8080
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`Servidor está rodando na porta ${PORT}.`);
 });
